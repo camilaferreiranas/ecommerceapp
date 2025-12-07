@@ -1,18 +1,32 @@
 version: "3.9"
 
 services:
-  postgres:
+  app:
+    build: .
+    container_name: product-api
+    depends_on:
+      - postgres-db
+    ports:
+      - "8080:8080"
+    networks:
+      - app-net
+
+  postgres-db:
     image: postgres:16
-    container_name: postgres-db
     restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1311
       POSTGRES_DB: ecommerce
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-net
 
 volumes:
   postgres_data:
+
+networks:
+  app-net:

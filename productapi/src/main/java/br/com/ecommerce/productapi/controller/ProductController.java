@@ -35,6 +35,7 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<Page<ProductResponseDTO>> findAll(Pageable pageable) {
+        log.info("Listagem de produtos");
         return ResponseEntity.ok(service.findAll(pageable));
     }
 
